@@ -1,0 +1,37 @@
+vlans:
+    lab:
+        vid: 100
+        description: "lab network"
+        unicast_flood: True       
+dps:                       
+    Open vSwitch:
+        dp_id: 0x
+        hardware: "Open vSwitch" 
+        interfaces:             
+            1:     
+                name: "h1"
+                description: "host1 container"
+                native_vlan: lab              
+            2:                  
+                name: "h2"
+                description: "host2 container"
+                native_vlan: lab
+                acls_in: [block-ping]           
+            3:                  
+                name: "Poseidon"
+                description: "Mirrors Traffic of port 2 to Poseidon"
+                native_vlan: lab
+acls:
+    block-ping:
+        - rule:
+            dl_type: 0x800
+            ip_proto: 1
+            actions:
+                allow: False
+                mirror: 3
+        - rule:
+            dl_type: 0x86dd
+            ip_proto: 58
+            actions:
+                allow: False
+                mirror: 3

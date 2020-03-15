@@ -20,5 +20,5 @@ apt-get install net-tools
 '''
 os.system('sudo ovs-docker add-port ovs-br1 eth0 box1 --ipaddress=173.16.1.2/24')
 os.system('sudo ovs-docker add-port ovs-br1 eth0 box2 --ipaddress=173.16.1.3/24')
-
+os.system('sudo ovs-vsctl show')
 print("BRIDGES CREATED")
